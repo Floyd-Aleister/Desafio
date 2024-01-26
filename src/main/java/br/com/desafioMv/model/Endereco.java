@@ -14,8 +14,7 @@ public class Endereco {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco")
-	public Long cdEndereco;
-	
+	public Long cdEndereco;	
 	private String rua;
 	private int numero;
 	private String cep;

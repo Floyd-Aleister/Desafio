@@ -1,9 +1,15 @@
 package br.com.desafioMv.model;
 
+import java.math.BigDecimal;
+
+import org.hibernate.id.BulkInsertionCapableIdentifierGenerator;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
@@ -15,12 +21,14 @@ public class Conta {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@SequenceGenerator(name = "seq_conta", sequenceName = "seq_conta")
 	public Long idConta;   //Chave primaria da tabela cliente
-	
-	private Long cdCliente;
+	@ManyToOne	
+	private Cliente cliente;
 	private Long nrConta;        //Número da conta
 	private Long nrAgencia;
 	private String dsAgencia;
 	private Long dgIdentificador;
+	private BigDecimal saldo;
+	
 	
 	public Conta() {
 	}
@@ -36,19 +44,6 @@ public class Conta {
 	public void setIdConta(Long idConta) {
 		this.idConta = idConta;
 	}
-
-
-
-	public Long getCdCliente() {
-		return cdCliente;
-	}
-
-
-
-	public void setCdCliente(Long cdCliente) {
-		this.cdCliente = cdCliente;
-	}
-
 
 
 	public Long getNrConta() {
@@ -91,32 +86,48 @@ public class Conta {
 		return dgIdentificador;
 	}
 
-
-
 	public void setDgIdentificador(Long dgIdentificador) {
 		this.dgIdentificador = dgIdentificador;
 	}
 
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+	public Cliente getCliente() {
+		return cliente;
+	}
+	
+	public void setSaldo(BigDecimal saldo) {
+		this.saldo = saldo;
+	}
+	public BigDecimal getSaldo() {
+		return saldo;
+	}
 
-
-	public Conta(Long idConta, Long cdCliente, Long nrConta, Long nrAgencia, String dsAgencia, Long dgIdentificador) {
+	public Conta(Long idConta, Long cdCliente, Long nrConta, Long nrAgencia, String dsAgencia, Long dgIdentificador, Cliente c) {
 		super();
-		this.idConta = idConta;
-		this.cdCliente = cdCliente;
+		this.idConta = idConta;		
 		this.nrConta = nrConta;
 		this.nrAgencia = nrAgencia;
 		this.dsAgencia = dsAgencia;
 		this.dgIdentificador = dgIdentificador;
+		this.cliente = c;
+		this.saldo = BigDecimal.ZERO;
 	}
 
 
 
 	@Override
 	public String toString() {
-		return "Conta [idConta=" + idConta + ", cdCliente=" + cdCliente + ", nrConta=" + nrConta + ", nrAgencia="
-				+ nrAgencia + ", dsAgencia=" + dsAgencia + ", dgIdentificador=" + dgIdentificador + "]";
+		return "Conta [idConta=" + idConta + ", cliente=" + cliente + ", nrConta=" + nrConta + ", nrAgencia="
+				+ nrAgencia + ", dsAgencia=" + dsAgencia + ", dgIdentificador=" + dgIdentificador + ", saldo=" + saldo
+				+ "]";
 	}
-	
+
+
+
+
+
 	
 	
 }
